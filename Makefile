@@ -14,6 +14,14 @@ objects = loader.o kernel.o
 mykernel.bin: linker.ld $(objects)
         ld $(LDPARAMS)
         
-        install: mykernel.bin
-                sudo cp S< /boot/mykernel.bin
+install: mykernel.bin
+        sudo cp S< /boot/mykernel.bin
                 
+mykernel.iso: mykernel.bin
+        mkdir iso
+        mkdir iso/boot
+        mkdir iso/boot/grub
+        cp mykernel.bin iso/boot
+        cp S< iso/boot
+        echo '' iso/boot/grub/grub.cfg
+        
